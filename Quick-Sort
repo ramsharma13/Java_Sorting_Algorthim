@@ -1,0 +1,56 @@
+//Worst case: if pivot was at the end and all numbers are greater than the pivot
+	//Best case: (n log n): due to you cutting the array in half n times
+	// Average case(n log n): ^
+
+public class QuickSort {
+	
+	public static void main(String [] args) {
+		int [] arr = {5, 1, 6, 4, 2, 3};
+		quickSort(arr, 0, arr.length);
+		
+      	/*Using a for each loop to print out the ordered numbers from the array*/
+      	for(int i: arr){
+        	System.out.println(i);
+        }// End of the for-each loop
+	
+	}// End of the main method
+	
+	public static void quickSort(int [] arr, int start, int end) {
+		/*Base case*/
+		if(start >= end) {
+			return;
+		}// End of the base case
+		
+		int pIndex = partition(arr, start, end);// The index of the pivot.
+		//System.out.println(pIndex);
+		
+		/*Recursive cases*/
+		quickSort(arr, start, pIndex - 1);// Left side of the array
+		quickSort(arr, pIndex + 1, end);// Right side of the array
+		
+	}// End of the quicksort method
+	
+	public static int partition(int [] arr, int start, int end) {
+		int pivot = arr[end - 1];// Select the pivot to be the last element
+		int pIndex = start;// (Partition index) Indicates where the pivot will be. 
+		
+		for(int i = start; i < end; i++) {
+			if(arr[i] < pivot) {
+				
+				// if a number is smaller than the pivot, it gets swapped with the Partition index
+				int temp = arr[pIndex];
+				arr[pIndex] = arr[i];
+				arr[i] = temp;
+				
+				pIndex++;// increments the partition index, only stops when pivot is in the right area
+			}// End of the if statement
+			
+		}// End of the for loop
+		
+		// This swaps the pivot with the element that stopped where the pivot should be
+		arr[end - 1] = arr[pIndex];
+		arr[pIndex] = pivot;
+		return pIndex;
+	}// End of the partition method
+	
+}// End of the QuickSort class
